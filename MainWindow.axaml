@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SoccerAnalyzer"
+        x:Class="SoccerAnalyzer.MainWindow"
+        Title="SoccerAnalyzer v0.3.1" Icon="/Assets/SoccerAnalyzer.ico" Width="1360" Height="820" MinWidth="900" MinHeight="560">
+  <Window.Styles>
+    <Style Selector="RadioButton"><Setter Property="MinHeight" Value="24"/><Setter Property="Padding" Value="6,0,0,0"/></Style>
+  </Window.Styles>
+  <DockPanel>
+    <!-- Top: file, edit and tracking actions (two short rows, no wrapping surprises) -->
+    <StackPanel DockPanel.Dock="Top" Margin="6" Spacing="4">
+      <StackPanel Orientation="Horizontal" Spacing="4">
+        <Button x:Name="OpenBtn" Content="Open video"/>
+        <Button x:Name="LinkBtn" Content="Open from link"/>
+        <Button x:Name="LoadBtn" Content="Load project"/>
+        <Button x:Name="SaveBtn" Content="Save project"/>
+        <Button x:Name="SnapBtn" Content="Snapshot"/>
+        <Button x:Name="ExportBtn" Content="Export video"/>
+        <Border Width="16"/>
+        <Button x:Name="UndoBtn" Content="Undo"/>
+        <Button x:Name="RedoBtn" Content="Redo"/>
+        <Button x:Name="DeleteBtn" Content="Delete"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="4">
+        <Button x:Name="TrackBackBtn" Content="&lt; Track back"/>
+        <Button x:Name="TrackBtn" Content="Track forward &gt;"/>
+        <CheckBox x:Name="RetrackChk" Content="Re-track after fix" IsChecked="True"/>
+        <CheckBox x:Name="KeyChk" Content="Keyframe mode"/>
+        <Button x:Name="ClearTrackBtn" Content="Clear track"/>
+      </StackPanel>
+    </StackPanel>
+    <!-- Status -->
+    <TextBlock x:Name="Status" DockPanel.Dock="Bottom" Margin="8,2,8,6" Text="SoccerAnalyzer v0.3.1: open a video, or use Open from link."/>
+    <!-- Transport -->
+    <Grid DockPanel.Dock="Bottom" Margin="6,0" ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto">
+      <Button x:Name="PlayBtn" Content="Play" Width="64" Grid.Column="0" Margin="0,0,4,0"/>
+      <Button x:Name="PrevBtn" Content="&lt;" Width="36" Grid.Column="1" Margin="0,0,4,0"/>
+      <Button x:Name="NextBtn" Content="&gt;" Width="36" Grid.Column="2" Margin="0,0,8,0"/>
+      <ComboBox x:Name="SpeedBox" Width="80" Grid.Column="3" Margin="0,0,8,0"/>
+      <Grid Grid.Column="4" RowDefinitions="16,Auto" VerticalAlignment="Center">
+        <local:TimelineMarkers x:Name="Markers" Grid.Row="0"/>
+        <Slider x:Name="Seek" Grid.Row="1" Minimum="0" Maximum="1"/>
+      </Grid>
+      <TextBlock x:Name="TimeText" Grid.Column="5" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="170" Text="00:00.00"/>
+    </Grid>
+    <!-- Left: drawing tools and style -->
+    <ScrollViewer DockPanel.Dock="Left" Width="150" VerticalScrollBarVisibility="Auto">
+      <StackPanel Margin="6" Spacing="3">
+        <TextBlock Text="Tools" FontWeight="SemiBold"/>
+        <RadioButton GroupName="tool" Tag="Select" Content="Select / edit" IsChecked="True"/>
+        <RadioButton GroupName="tool" Tag="Line" Content="Line"/>
+        <RadioButton GroupName="tool" Tag="Arrow" Content="Arrow"/>
+        <RadioButton GroupName="tool" Tag="DashedArrow" Content="Dashed arrow"/>
+        <RadioButton GroupName="tool" Tag="Ring" Content="Ring"/>
+        <RadioButton GroupName="tool" Tag="Zone" Content="Zone"/>
+        <RadioButton GroupName="tool" Tag="Freehand" Content="Freehand"/>
+        <RadioButton GroupName="tool" Tag="Pole" Content="Spotlight"/>
+        <RadioButton GroupName="tool" Tag="Eyedrop" Content="Eyedropper"/>
+        <TextBlock Text="Color" FontWeight="SemiBold" Margin="0,10,0,0"/>
+        <ComboBox x:Name="ColorBox" HorizontalAlignment="Stretch"/>
+        <Border x:Name="Swatch" Height="22" CornerRadius="4" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBlock Text="Line width" FontWeight="SemiBold" Margin="0,10,0,0"/>
+        <NumericUpDown x:Name="WidthBox" Minimum="1" Maximum="20" Value="3" HorizontalAlignment="Stretch"/>
+        <TextBlock Text="Visible for (s)" FontWeight="SemiBold" Margin="0,10,0,0"/>
+        <NumericUpDown x:Name="DurBox" Minimum="0.5" Maximum="120" Value="5" Increment="0.5" HorizontalAlignment="Stretch"/>
+        <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" Opacity="0.7" FontSize="11"
+                   Text="Ctrl+Z / Ctrl+Y undo, redo. Space play. Arrows step (Shift = 1 s). Alt+Arrows jump between keyframes. Ctrl+C / V / D copy, paste, duplicate."/>
+      </StackPanel>
+    </ScrollViewer>
+    <local:VideoSurface x:Name="Surface" Margin="6"/>
+  </DockPanel>
+</Window>

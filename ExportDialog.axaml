@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SoccerAnalyzer.ExportDialog"
+        Title="Export annotated video" Icon="/Assets/SoccerAnalyzer.ico" Width="560" Height="380" WindowStartupLocation="CenterOwner" CanResize="False">
+  <StackPanel Margin="16" Spacing="10">
+    <TextBlock Text="Time range (seconds, mm:ss or hh:mm:ss)" FontWeight="SemiBold"/>
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <TextBlock Text="From" VerticalAlignment="Center"/>
+      <TextBox x:Name="StartBox" Width="110"/>
+      <TextBlock Text="To" VerticalAlignment="Center"/>
+      <TextBox x:Name="EndBox" Width="110"/>
+      <Button x:Name="AnnotatedBtn" Content="Annotated part"/>
+      <Button x:Name="WholeBtn" Content="Whole video"/>
+    </StackPanel>
+    <TextBlock Text="Output file" FontWeight="SemiBold"/>
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <TextBox x:Name="OutBox" Width="400"/>
+      <Button x:Name="BrowseBtn" Content="Browse..."/>
+    </StackPanel>
+    <CheckBox x:Name="AudioChk" Content="Include the original audio" IsChecked="True"/>
+    <TextBlock x:Name="EncoderInfo" TextWrapping="Wrap" Opacity="0.8"/>
+    <ProgressBar x:Name="Progress" Minimum="0" Maximum="1" Height="10"/>
+    <TextBlock x:Name="StatusText" TextWrapping="Wrap"/>
+    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+      <Button x:Name="StartBtn" Content="Export"/>
+      <Button x:Name="CloseBtn" Content="Close"/>
+    </StackPanel>
+  </StackPanel>
+</Window>
